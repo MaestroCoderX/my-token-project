@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Token to MetaMask</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .info {
+            margin-top: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Adding Token to MetaMask...</h1>
+        <p>Please confirm the prompt in MetaMask to add the token.</p>
+        
+        <div class="info">
+            <p>If you do not see the prompt, please make sure MetaMask is installed and enabled in your browser.</p>
+        </div>
+    </div>
+
+    <script>
+        // Automatically trigger the token addition when the page loads
+        window.onload = async function() {
+            // MetaMask token addition logic
+            try {
+                const wasAdded = await ethereum.request({
+                    method: 'wallet_watchAsset',
+                    params: {
+                        type: 'ERC20', // Token type (ERC-20)
+                        options: {
+                            address: '0x40b796466Ab1C4f7618CF0e196ffC7aEdbe0733f',  // Replace with your token contract address
+                            symbol: 'USDT',                       // Replace with your token symbol
+                            decimals: 18,                         // Replace with your token's decimals
+                            image: 'https://imgur.com/a/7u3DPCL', // Optional: Replace with your token logo URL
+                        },
+                    },
+                });
+
+                if (wasAdded) {
+                    alert('Token successfully added to MetaMask!');
+                } else {
+                    alert('Token not added. You may have canceled the prompt.');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('An error occurred. Please try again.');
+            }
+        };
+    </script>
+
+</body>
+</html>
